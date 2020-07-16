@@ -7,6 +7,8 @@ require('./API/divisors')(app);
 //export the searchText endpoint for the test 2
 require('./API/searchText')(app);
 
+require('./API/dbTest')(app);
+
 
 
 
