@@ -51,14 +51,14 @@ module.exports = (app) => {
 
             res.json({ success: 'Database connected' });
 
-            // connection.query('select tag from tags', function (err, result) {
-            //     if (err) {
-            //         res.json({ error: 'query failed: ' + err.stack });
-            //     }
-            //     res.json({ tags: result });
+            connection.query('SHOW SCHEMAS', function (err, result) {
+                if (err) {
+                    res.json({ error: 'query failed: ' + err.stack });
+                }
+                res.json({ tags: result });
 
-            //     connection.end();
-            // });
+                connection.end();
+            });
         });
 
 
