@@ -21,7 +21,8 @@ const connection = mysql.createConnection({
     host: process.env.RDS_HOSTNAME,
     user: process.env.RDS_USERNAME,
     password: process.env.RDS_PASSWORD,
-    port: process.env.RDS_PORT
+    port: process.env.RDS_PORT,
+    database: 'til'
 });
 
 // var connection = mysql.createConnection({
@@ -48,7 +49,7 @@ module.exports = (app) => {
                 res.json({ error: 'Database connection failed: ' + err.stack });
             }
 
-            connection.query('select til.tag from tags', function (err, result) {
+            connection.query('select tag from tags', function (err, result) {
                 if (err) {
                     res.json({ error: 'query failed: ' + err.stack });
                 }
