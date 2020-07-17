@@ -22,7 +22,7 @@ const connection = mysql.createConnection({
     user: process.env.RDS_USERNAME,
     password: process.env.RDS_PASSWORD,
     port: process.env.RDS_PORT,
-    database: 'sys'
+    database: 'ebdb'
 });
 
 // var connection = mysql.createConnection({
@@ -51,7 +51,7 @@ module.exports = (app) => {
 
             //res.json({ success: 'Database connected' });
 
-            connection.query('SHOW SCHEMAS', function (err, result) {
+            connection.query('SHOW TABLES', function (err, result) {
                 if (err) {
                     res.json({ error: 'query failed: ' + err.stack });
                 }
