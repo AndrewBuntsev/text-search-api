@@ -1,4 +1,4 @@
-require('dotenv').config();
+//require('dotenv').config();
 
 // const mysql = require('mysql');
 // const util = require('util');
@@ -17,19 +17,19 @@ require('dotenv').config();
 
 var mysql = require('mysql');
 
-// var connection = mysql.createConnection({
-//   host     : process.env.RDS_HOSTNAME,
-//   user     : process.env.RDS_USERNAME,
-//   password : process.env.RDS_PASSWORD,
-//   port     : process.env.RDS_PORT
-// });
-
 var connection = mysql.createConnection({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    port: process.env.MYSQL_PORT
+    host: process.env.RDS_HOSTNAME,
+    user: process.env.RDS_USERNAME,
+    password: process.env.RDS_PASSWORD,
+    port: process.env.RDS_PORT
 });
+
+// var connection = mysql.createConnection({
+//     host: process.env.MYSQL_HOST,
+//     user: process.env.MYSQL_USER,
+//     password: process.env.MYSQL_PASSWORD,
+//     port: process.env.MYSQL_PORT
+// });
 
 
 
@@ -39,10 +39,6 @@ module.exports = (app) => {
         return;
     });
 
-    app.get('/pwd', async (req, res) => {
-        res.json({ res: process.env.MYSQL_PASSWORD });
-        return;
-    });
 
 
     app.get('/tags', async (req, res) => {
