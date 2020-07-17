@@ -49,14 +49,16 @@ module.exports = (app) => {
                 res.json({ error: 'Database connection failed: ' + err.stack });
             }
 
-            connection.query('select tag from tags', function (err, result) {
-                if (err) {
-                    res.json({ error: 'query failed: ' + err.stack });
-                }
-                res.json({ tags: result });
+            res.json({ success: 'Database connected' });
 
-                connection.end();
-            });
+            // connection.query('select tag from tags', function (err, result) {
+            //     if (err) {
+            //         res.json({ error: 'query failed: ' + err.stack });
+            //     }
+            //     res.json({ tags: result });
+
+            //     connection.end();
+            // });
         });
 
 
