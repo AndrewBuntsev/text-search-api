@@ -53,12 +53,14 @@ module.exports = (app) => {
                     res.json({ error: 'query failed: ' + err.stack });
                 }
                 res.json({ tags: result });
+
+                connection.end();
             });
         });
 
 
 
-        connection.end();
+
 
 
         return;
