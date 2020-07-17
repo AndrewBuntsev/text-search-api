@@ -49,7 +49,7 @@ module.exports = (app) => {
                 res.json({ error: 'Database connection failed: ' + err.stack });
             }
 
-            res.json({ success: 'Database connected' });
+            //res.json({ success: 'Database connected' });
 
             connection.query('SHOW SCHEMAS', function (err, result) {
                 if (err) {
