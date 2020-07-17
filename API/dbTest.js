@@ -39,6 +39,11 @@ module.exports = (app) => {
         return;
     });
 
+    app.get('/pwd', async (req, res) => {
+        res.json({ res: process.env.MYSQL_PASSWORD });
+        return;
+    });
+
 
     app.get('/tags', async (req, res) => {
 
