@@ -17,21 +17,19 @@ const util = require('util');
 
 // var mysql = require('mysql');
 
+// const connection = mysql.createConnection({
+//     host: process.env.MYSQL_HOST,
+//     user: process.env.MYSQL_USER,
+//     password: process.env.MYSQL_PASSWORD,
+//     port: '3306'
+// });
+
 const connection = mysql.createConnection({
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
-    port: '3306'
+    port: process.env.MYSQL_PORT
 });
-
-// var connection = mysql.createConnection({
-//     host: process.env.MYSQL_HOST,
-//     user: process.env.MYSQL_USER,
-//     password: process.env.MYSQL_PASSWORD,
-//     port: process.env.MYSQL_PORT
-// });
-
 
 
 module.exports = (app) => {
@@ -47,27 +45,33 @@ module.exports = (app) => {
 
         connection.connect(function (err) {
             if (err) {
-                res.json({ error: 'Database connection failed: ' + err.stack });
+                console.log({ error: 'Database connection failed: ' + err.stack });
             }
 
-            //res.json({ success: 'Database connected' });
-
-            connection.query('SHOW TABLES', function (err, result) {
+            connection.query('SHOW schemas', function (err, result) {
                 if (err) {
+                    console.log({ error: 'query failed: ' + err.stack });
                     res.json({ error: 'query failed: ' + err.stack });
+                    connection.end();
+                    return;
                 }
-                res.json({ tags: result });
 
-                connection.end();
+                console.log('schemas: ' + JSON.stringify(result));
+
+                connection.query('select * from til.tags', function (err, result) {
+                    if (err) {
+                        console.log({ error: 'query failed: ' + err.stack });
+                        res.json({ error: 'query failed: ' + err.stack });
+                        connection.end();
+                        return;
+                    }
+
+                    console.log('tags: ' + JSON.stringify(result));
+                    res.json({ tags: result });
+                    connection.end();
+                });
             });
         });
-
-
-
-
-
-
-        return;
     });
 
 
